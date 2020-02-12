@@ -5,6 +5,7 @@ import { getComputerMove } from '../../utils/computer'
 import { isTie, findWinner } from '../../utils/scoring'
 import { Board as BoardType, Move, Player, COMPUTER, HUMAN } from '../../utils/types'
 import './style.css'
+import Announcement from '../Announcements'
 
 type GameState = {
   isGameOver: boolean
@@ -53,7 +54,7 @@ export default class Game extends React.Component<{}, GameState> {
     const { board } = this.state
     const winner = findWinner(board)
     if (winner) {
-      return this.setState({ isGameOver: true, winner, })
+      return this.setState({ isGameOver: true, winner })
     }
     if (isTie(board)) {
       return this.setState({ isGameOver: true, })
@@ -61,7 +62,6 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   async computerTurn() {
-    await this.checkForEndOfGame()
     const { board: ogBoard, isGameOver } = this.state
     if (isGameOver) {
       return
@@ -72,22 +72,24 @@ export default class Game extends React.Component<{}, GameState> {
     if (move !== undefined) {
       await this.makeMove(move, COMPUTER)
     }
+    await this.checkForEndOfGame()
   }
 
   async userTurn(move: Move) {
-    await this.checkForEndOfGame()
     // typescript is upset and needs the casting
     await this.makeMove(move, HUMAN)
+    await this.checkForEndOfGame()
     this.computerTurn()
   }
 
   render() {
-    const { board, hasGameStarted, isGameOver } = this.state
+    const { board, hasGameStarted, isGameOver, winner } = this.state
     const resetGame = this.resetGame.bind(this)
     const startGame = this.startGame.bind(this)
-    const userTurn = isGameOver ? () => {} : this.userTurn.bind(this)
+    const userTurn = hasGameStarted && !isGameOver ? this.userTurn.bind(this) : () => {}
     return (
       <div>
+        <Announcement isGameOver={isGameOver} winner={winner} />
         <Board board={board} userTurn={userTurn}/>
         <Options
           hasGameStarted={hasGameStarted}
