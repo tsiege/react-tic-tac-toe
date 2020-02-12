@@ -1,0 +1,48 @@
+.tile {
+  float: left;
+  width: 33.3333%;
+  border: 1px solid var(--themeWhite);
+  box-sizing: border-box;
+  background: var(--themeBlack);
+  position: relative;
+}
+
+/* .tile:after {
+  clear: both;
+  content: "";
+} */
+
+.tile:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.tile-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--themeTealDark);
+  font-size: 3em;
+}
+
+.marker {
+  position: relative;
+}
+
+.top {
+  border-top: 0px;
+}
+
+.bottom {
+  border-bottom: 0px;
+}
+
+.left {
+  border-left: 0px;
+}
+
+.right {
+  border-right: 0px;
+}

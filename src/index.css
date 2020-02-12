@@ -1,4 +1,13 @@
+:root {
+  --themeBlack: #282c34;
+  --themeBlackDark: #48484F;
+  --themeTeal: #4E9199;
+  --themeTealDark: #008080;
+  --themeWhite: white;
+}
+
 body {
+  background-color: var(--themeBlack);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
