@@ -1,0 +1,31 @@
+.computer {
+  width: 20%;
+  height: 0%;
+  fill: var(--themeTeal);
+}
+
+.computer:hover {
+  cursor: pointer;
+  fill: var(--themeTealDark);
+}
+
+.human {
+  width: 20%;
+  height: 0%;
+  fill: var(--themeTeal);
+}
+
+.human:hover {
+  fill: var(--themeTealDark);
+  cursor: pointer;
+}
+
+.game-choices {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.game-announcements {
+  text-align: center;
+  margin-bottom: 1em;
+}
