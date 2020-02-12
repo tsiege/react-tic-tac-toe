@@ -1,3 +1,27 @@
+# Tic Tac Toe
+
+## Structure
+```
+./src
+├── components              # React Components
+    ├── Game                # Handles game state, turns, etc
+    ├── Board               # Displays board, spaces, and allows users to click
+    ├── Tile                # Makes up the tiles of the board
+    ├── Announcements       # Displays win lose info
+    ├── Options             # Displays game options
+├── utils                   # Non React helper functions
+    ├── computer            # functions to make the computer work
+    ├── scoring             # functions to handle scoring and checking for wins
+    ├── types               # any miscellaneous types I might need
+```
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
