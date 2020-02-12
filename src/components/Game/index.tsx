@@ -1,8 +1,9 @@
 import React from 'react'
 import './style.css'
 import Board from '../Board'
-import { Board as BoardType } from '../../utils/types'
+import { Board as BoardType, Move } from '../../utils/types'
 import Options from '../Options'
+import { getComputerMove } from '../../utils/computer'
 
 type GameState = {
   hasLost: boolean
@@ -17,9 +18,9 @@ function blankState(): GameState {
     hasTied: false,
     hasGameStarted: false,
     board: [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', '']
+      '', '', '',
+      '', '', '',
+      '', '', ''
     ]
   }
 }
@@ -35,17 +36,36 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   startGame(player: 'computer' | 'human') {
-    console.log(player)
     this.setState({ hasGameStarted: true })
+    if (player === 'computer') {
+      return this.computerTurn()
+    }
+  }
+
+  computerTurn() {
+    // typescript is upset and needs the casting
+    const board = [...this.state.board] as BoardType
+    const move = getComputerMove(board)
+    board[move] = 'O'
+    this.setState({ board })
+  }
+
+  async userTurn(move: Move) {
+    // typescript is upset and needs the casting
+    const board = [...this.state.board] as BoardType
+    board[move] = 'X'
+    await this.setState({ board })
+    this.computerTurn()
   }
 
   render() {
     const { board, hasGameStarted } = this.state
     const resetGame = this.resetGame.bind(this)
     const startGame = this.startGame.bind(this)
+    const userTurn = this.userTurn.bind(this)
     return (
       <div>
-        <Board board={board}/>
+        <Board board={board} userTurn={userTurn}/>
         <Options
           hasGameStarted={hasGameStarted}
           resetGame={() => resetGame()}
