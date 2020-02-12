@@ -9,6 +9,7 @@ import Announcement from '../Announcements'
 
 type GameState = {
   isGameOver: boolean
+  isHard?: boolean
   winner?: Player
   hasGameStarted: boolean
   board: BoardType
@@ -17,6 +18,7 @@ type GameState = {
 function blankState(): GameState {
   return {
     isGameOver: false,
+    isHard: undefined,
     winner: undefined,
     hasGameStarted: false,
     board: [
@@ -37,8 +39,8 @@ export default class Game extends React.Component<{}, GameState> {
     this.setState(blankState())
   }
 
-  startGame(player: Player) {
-    this.setState({ hasGameStarted: true })
+  async startGame({ player, isHard }: { player: Player, isHard: boolean }) {
+    await this.setState({ hasGameStarted: true, isHard })
     if (player === COMPUTER) {
       return this.computerTurn()
     }
@@ -62,13 +64,13 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   async computerTurn() {
-    const { board: ogBoard, isGameOver } = this.state
+    const { board: ogBoard, isGameOver, isHard } = this.state
     if (isGameOver) {
       return
     }
     // typescript is upset and needs the casting
     const board = [...ogBoard] as BoardType
-    const move = getComputerMove(board)
+    const move = getComputerMove({ board, isHard })
     if (move !== undefined) {
       await this.makeMove(move, COMPUTER)
     }
@@ -83,7 +85,7 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   render() {
-    const { board, hasGameStarted, isGameOver, winner } = this.state
+    const { board, hasGameStarted, isGameOver, winner, isHard } = this.state
     const resetGame = this.resetGame.bind(this)
     const startGame = this.startGame.bind(this)
     const userTurn = hasGameStarted && !isGameOver ? this.userTurn.bind(this) : () => {}
@@ -92,9 +94,10 @@ export default class Game extends React.Component<{}, GameState> {
         <Announcement isGameOver={isGameOver} winner={winner} />
         <Board board={board} userTurn={userTurn}/>
         <Options
+          isHard={isHard}
           hasGameStarted={hasGameStarted}
           resetGame={() => resetGame()}
-          startGame={(choice) => startGame(choice)}
+          startGame={(args) => startGame(args)}
         />
       </div>
     )

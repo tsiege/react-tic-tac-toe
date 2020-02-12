@@ -23,4 +23,5 @@
 .game-choices {
   text-align: center;
   margin-top: 2em;
+  color: var(--themeWhite)
 }
