@@ -1,14 +1,14 @@
 import React from 'react'
-import './style.css'
 import Board from '../Board'
-import { Board as BoardType, Move } from '../../utils/types'
 import Options from '../Options'
 import { getComputerMove } from '../../utils/computer'
 import { isTie, findWinner } from '../../utils/scoring'
+import { Board as BoardType, Move, Player, COMPUTER, HUMAN } from '../../utils/types'
+import './style.css'
 
 type GameState = {
   isGameOver: boolean
-  winner?: 'O' | 'X'
+  winner?: Player
   hasGameStarted: boolean
   board: BoardType
 }
@@ -36,14 +36,14 @@ export default class Game extends React.Component<{}, GameState> {
     this.setState(blankState())
   }
 
-  startGame(player: 'computer' | 'human') {
+  startGame(player: Player) {
     this.setState({ hasGameStarted: true })
-    if (player === 'computer') {
+    if (player === COMPUTER) {
       return this.computerTurn()
     }
   }
 
-  makeMove(move: Move, tile: 'X' | 'O') {
+  makeMove(move: Move, tile: Player) {
     const board = [...this.state.board] as BoardType
     board[move] = tile
     return this.setState({ board })
@@ -70,14 +70,14 @@ export default class Game extends React.Component<{}, GameState> {
     const board = [...ogBoard] as BoardType
     const move = getComputerMove(board)
     if (move !== undefined) {
-      await this.makeMove(move, 'O')
+      await this.makeMove(move, COMPUTER)
     }
   }
 
   async userTurn(move: Move) {
     await this.checkForEndOfGame()
     // typescript is upset and needs the casting
-    await this.makeMove(move, 'X')
+    await this.makeMove(move, HUMAN)
     this.computerTurn()
   }
 

@@ -9,3 +9,8 @@ export function getEmptySpaces(board: Board) {
   }
   return emptySpaces
 }
+
+export function pickRandomElement<returnType>(arr: any[]) {
+  const i = Math.floor(Math.random() * arr.length)
+  return arr[i] as returnType | undefined
+}

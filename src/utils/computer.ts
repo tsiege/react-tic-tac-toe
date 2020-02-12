@@ -1,8 +1,7 @@
 import { Board, Move } from './types'
-import { getEmptySpaces } from './helpers'
+import { getEmptySpaces, pickRandomElement } from './helpers'
 
-export function getComputerMove(board: Board): Move | undefined {
+export function getComputerMove(board: Board) {
   const emptySpaces = getEmptySpaces(board)
-  const i = Math.floor(Math.random() * getEmptySpaces(board).length)
-  return emptySpaces[i]
+  return pickRandomElement<Move>(emptySpaces)
 }
