@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "lodash.maxby": "^4.6.0",
+    "lodash.minby": "^4.6.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.1",
@@ -33,6 +35,8 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash.maxby": "^4.6.6",
+    "@types/lodash.minby": "^4.6.6",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@types/testing-library__jest-dom": "^5.0.1",

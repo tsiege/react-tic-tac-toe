@@ -11,6 +11,10 @@ export function isTie(board: Board) {
   return board.filter(tile => tile !== '').length === board.length
 }
 
+export function isGameOver(board: Board) {
+  return !!findWinner(board) || isTie(board)
+}
+
 
 function findHorizontalWinner(board: Board) {
   const rows = [
