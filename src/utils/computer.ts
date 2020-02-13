@@ -22,6 +22,7 @@ interface MinimaxMove {
   score?: number
 }
 
+// the minimax algorithm which with returns a move and the score for that move
 function minimax(board: Board, player: Player = COMPUTER, depth = 0): MinimaxMove {
   //if middle tile isn't taken take it
   if (board[4] === EMPTY) {
@@ -37,10 +38,8 @@ function minimax(board: Board, player: Player = COMPUTER, depth = 0): MinimaxMov
   }
   //set adversary for recursive calls
   const adversary: Player = player === COMPUTER ? HUMAN : COMPUTER
-
   //increment depth
   depth++
-
   //iterate through potential moves
   for (let spaceIndex = 0; emptySpaces.length > spaceIndex; spaceIndex++) {
     let score
@@ -50,7 +49,6 @@ function minimax(board: Board, player: Player = COMPUTER, depth = 0): MinimaxMov
     let originalTile = board[move]
     //take selected move
     board[move] = player
-
     if (isGameOver(board)) {
       //if game is over score move
       score = scoreGame(board, depth)
@@ -58,7 +56,6 @@ function minimax(board: Board, player: Player = COMPUTER, depth = 0): MinimaxMov
       //if game is not over keep going...
       score = minimax(board, adversary, depth).score
     }
-
     //push move and final score into array of possible moves
     moves.push({ score, move })
     //replace original tile on the board
