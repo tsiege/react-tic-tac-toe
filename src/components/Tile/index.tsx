@@ -1,11 +1,11 @@
 import React from 'react'
 import './style.css'
 
-type TileProps = {
+interface TileProps {
   row: string
   column: string
   marker: string
-  onClick: any
+  onClick: () => any
 }
 
 export default class Tile extends React.Component<TileProps> {

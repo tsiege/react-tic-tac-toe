@@ -5,9 +5,9 @@ import { getComputerMove } from '../../utils/computer'
 import { isTie, findWinner } from '../../utils/scoring'
 import { Board as BoardType, Move, Player, COMPUTER, HUMAN } from '../../utils/types'
 import './style.css'
-import Announcement from '../Announcements'
+import Announcements from '../Announcements'
 
-type GameState = {
+interface GameState {
   isGameOver: boolean
   isHard?: boolean
   winner?: Player
@@ -35,11 +35,11 @@ export default class Game extends React.Component<{}, GameState> {
     this.state = blankState()
   }
 
-  resetGame() {
+  resetGame = () => {
     this.setState(blankState())
   }
 
-  async startGame({ player, isHard }: { player: Player, isHard: boolean }) {
+  startGame = async ({ player, isHard }: { player: Player, isHard: boolean }) => {
     await this.setState({ hasGameStarted: true, isHard })
     if (player === COMPUTER) {
       return this.computerTurn()
@@ -77,7 +77,7 @@ export default class Game extends React.Component<{}, GameState> {
     await this.checkForEndOfGame()
   }
 
-  async userTurn(move: Move) {
+  userTurn = async (move: Move) => {
     // typescript is upset and needs the casting
     await this.makeMove(move, HUMAN)
     await this.checkForEndOfGame()
@@ -86,17 +86,15 @@ export default class Game extends React.Component<{}, GameState> {
 
   render() {
     const { board, hasGameStarted, isGameOver, winner, isHard } = this.state
-    const resetGame = this.resetGame.bind(this)
-    const startGame = this.startGame.bind(this)
-    const userTurn = hasGameStarted && !isGameOver ? this.userTurn.bind(this) : () => {}
+    const userTurn = hasGameStarted && !isGameOver ? this.userTurn : () => {}
     return (
       <div>
-        <Announcement isGameOver={isGameOver} winner={winner} />
+        <Announcements isGameOver={isGameOver} winner={winner} />
         <Options
           isHard={isHard}
           hasGameStarted={hasGameStarted}
-          resetGame={() => resetGame()}
-          startGame={(args) => startGame(args)}
+          resetGame={() => this.resetGame()}
+          startGame={(args) => this.startGame(args)}
         />
         <Board board={board} userTurn={userTurn}/>
       </div>

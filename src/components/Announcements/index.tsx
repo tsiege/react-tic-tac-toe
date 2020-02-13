@@ -29,12 +29,12 @@ const LOST_TEXT = [
   `Wanna join the neo ludites yet?`
 ]
 
-type AnnouncementProps = {
+interface AnnouncementsProps {
   isGameOver: boolean
   winner?: 'O' | 'X'
 }
 
-export default class Announcement extends React.Component<AnnouncementProps> {
+export default class Announcements extends React.Component<AnnouncementsProps> {
   renderAnnouncement(text: string, textArr: string[]) {
     const randomText = pickRandomElement<string>(textArr)
     return (
