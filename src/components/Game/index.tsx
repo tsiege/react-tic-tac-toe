@@ -92,13 +92,13 @@ export default class Game extends React.Component<{}, GameState> {
     return (
       <div>
         <Announcement isGameOver={isGameOver} winner={winner} />
-        <Board board={board} userTurn={userTurn}/>
         <Options
           isHard={isHard}
           hasGameStarted={hasGameStarted}
           resetGame={() => resetGame()}
           startGame={(args) => startGame(args)}
         />
+        <Board board={board} userTurn={userTurn}/>
       </div>
     )
   }

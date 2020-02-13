@@ -1,16 +1,13 @@
 .tile {
   float: left;
   width: 33.3333%;
-  border: 1px solid var(--themeWhite);
+  border: 2px solid var(--themeWhite);
   box-sizing: border-box;
   background: var(--themeBlack);
   position: relative;
+  margin: -1px;
+  cursor: pointer;
 }
-
-/* .tile:after {
-  clear: both;
-  content: "";
-} */
 
 .tile:before {
   content: "";
@@ -24,7 +21,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--themeTealDark);
-  font-size: 3em;
+  font-size: calc(3em + 5vw);
 }
 
 .marker {
@@ -45,4 +42,8 @@
 
 .right {
   border-right: 0px;
+}
+
+.middle {
+  border-bottom: 1px;
 }

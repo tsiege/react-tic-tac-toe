@@ -1,4 +1,15 @@
-.holder {
-  margin: 0 auto;
-  width: 50%;
+.board .wrap {
+  width: 30%;
+}
+
+@media screen and (max-width: 900px) {
+  .board .wrap {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .board .wrap {
+    width: 75%;
+  }
 }

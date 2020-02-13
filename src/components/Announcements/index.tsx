@@ -39,7 +39,7 @@ export default class Announcement extends React.Component<AnnouncementProps> {
     const randomText = pickRandomElement<string>(textArr)
     return (
       <div>
-        <div>{text}</div>
+        <h2>{text}</h2>
         <div>{randomText}</div>
       </div>
     )
@@ -59,9 +59,11 @@ export default class Announcement extends React.Component<AnnouncementProps> {
       html = this.renderAnnouncement('Human Wins!', WON_TEXT)
     }
     return (
-      <div className="game-announcements twelve columns">
-        {html}
-      </div>
+      <section className='wrap'>
+        <div className='announcements'>
+          {html}
+        </div>
+      </section>
     )
   }
 }

@@ -1,27 +1,24 @@
-.computer {
-  width: 20%;
-  height: 0%;
-  fill: var(--themeTeal);
+.options {
+  color: var(--themeWhite);
+  width: 50%;
+  display: inline-block;
 }
 
-.computer:hover {
+.option-button {
+  background: linear-gradient(to bottom, var(--themeTeal), 10%, var(--themeTealDark) 100%);
+  border-radius: 5px;
+  border: 1px solid var(--themeTealDark);
   cursor: pointer;
-  fill: var(--themeTealDark);
+  color: var(--themeWhite);
+  font-size: 15px;
+  padding: 6px 24px;
 }
 
-.human {
-  width: 20%;
-  height: 0%;
-  fill: var(--themeTeal);
+.option-button:hover {
+  background: linear-gradient(to bottom, var(--themeTealDark) 10%, var(--themeTeal) 100%);
 }
 
-.human:hover {
-  fill: var(--themeTealDark);
-  cursor: pointer;
-}
-
-.game-choices {
-  text-align: center;
-  margin-top: 2em;
-  color: var(--themeWhite)
+.option-button:active {
+  position: relative;
+  top: 1px;
 }

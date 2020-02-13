@@ -3,7 +3,6 @@ import './style.css'
 import { Board as BoardType, Move } from '../../utils/types'
 import Tile from '../Tile'
 
-
 type BoardProps = {
   userTurn: (choice: Move) => any
   board: BoardType
@@ -34,9 +33,11 @@ export default class Board extends React.Component<BoardProps> {
   }
   render() {
     return (
-      <div className='holder'>
-        {this.renderBoard()}
-      </div>
+      <section className='board'>
+        <div className='wrap'>
+          {this.renderBoard()}
+        </div>
+      </section>
     )
   }
 }
