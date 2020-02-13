@@ -34,9 +34,7 @@ export default class Board extends React.Component<BoardProps> {
   render() {
     return (
       <section className='board'>
-        <div className='wrap'>
-          {this.renderBoard()}
-        </div>
+        {this.renderBoard()}
       </section>
     )
   }

@@ -48,19 +48,18 @@ export default class Announcements extends React.Component<AnnouncementsProps> {
   render() {
     const { isGameOver, winner } = this.props
     let html: JSX.Element | string = ''
-    if (!isGameOver) {
-      return html
-    }
-    if (!winner) {
-      html = this.renderAnnouncement('Tie Game!', TIED_TEXT)
-    } else if (winner === COMPUTER) {
-      html = this.renderAnnouncement('Computer Wins!', LOST_TEXT)
-    } else {
-      html = this.renderAnnouncement('Human Wins!', WON_TEXT)
+    if (isGameOver) {
+      if (!winner) {
+        html = this.renderAnnouncement('Tie Game!', TIED_TEXT)
+      } else if (winner === COMPUTER) {
+        html = this.renderAnnouncement('Computer Wins!', LOST_TEXT)
+      } else {
+        html = this.renderAnnouncement('Human Wins!', WON_TEXT)
+      }
     }
     return (
-      <section className='wrap'>
-        <div className='announcements'>
+      <section className='announcements'>
+        <div className='wrap'>
           {html}
         </div>
       </section>

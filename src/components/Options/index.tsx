@@ -36,7 +36,7 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
   renderPrePlayOptions() {
     if (this.state.isHard === undefined) {
       return (
-        <div className='wrap'>
+        <div>
           <h3>Which way do you wanna do this?</h3>
           <p>
             <button className='option-button' onClick={() => this.pickYourPoison(true)}>
@@ -52,7 +52,7 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
       )
     } else {
       return (
-        <div className='wrap'>
+        <div>
           <h3>Who goes first?</h3>
             <p>
               <button className='option-button' onClick={() => this.callStart(COMPUTER)}>
@@ -72,7 +72,7 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
   renderResetButton() {
     const { resetGame } = this.props
     return (
-      <div className='wrap'>
+      <div className='start-over'>
         <button className='option-button' onClick={resetGame}>Start Over</button>
       </div>
     )

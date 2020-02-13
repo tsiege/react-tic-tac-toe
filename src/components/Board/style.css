@@ -1,15 +1,16 @@
-.board .wrap {
+.board {
   width: 30%;
+  margin: 0 auto 20px;
 }
 
 @media screen and (max-width: 900px) {
-  .board .wrap {
-    width: 75%;
+  .board {
+    width: 50%;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .board .wrap {
+  .board {
     width: 75%;
   }
 }
