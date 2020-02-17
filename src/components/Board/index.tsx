@@ -12,7 +12,7 @@ const COLUMNS = ['left', 'middle', 'right']
 export default class Board extends React.Component<BoardProps> {
   renderBoard() {
     const { board, userTurn } = this.props
-    const tiles: any[] = []
+    const tiles: JSX.Element[] = []
     let i: Move = 0
     ROWS.forEach(row => {
       COLUMNS.forEach(column => {
