@@ -87,10 +87,12 @@ export default class Game extends React.Component<{}, GameState> {
   render() {
     const { board, hasGameStarted, isGameOver, winner, isHard } = this.state
     const userTurn = hasGameStarted && !isGameOver ? this.userTurn : () => {}
+    const optionsStyle = isGameOver ? { height: '100px', paddingBottom: '70px' } : { height: '200px' }
     return (
       <div>
         <Announcements isGameOver={isGameOver} winner={winner} />
         <Options
+          style={optionsStyle}
           isHard={isHard}
           hasGameStarted={hasGameStarted}
           resetGame={() => this.resetGame()}

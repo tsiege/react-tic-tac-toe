@@ -5,6 +5,7 @@ import './style.css'
 interface OptionsProps {
   isHard?: boolean
   hasGameStarted: boolean
+  style: { [key: string]: string | undefined }
   resetGame: () => any
   startGame: (args: { player: Player, isHard: boolean }) => any
 }
@@ -79,10 +80,10 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
   }
 
   render() {
-    const { hasGameStarted } = this.props
+    const { hasGameStarted, style } = this.props
     const innerHtml = hasGameStarted ? this.renderResetButton() : this.renderPrePlayOptions()
     return (
-      <section className='options'>
+      <section style={style} className='options'>
         {innerHtml}
       </section>
     )

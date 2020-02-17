@@ -1,7 +1,6 @@
 .options {
   color: var(--themeWhite);
   width: 70%;
-  height: 200px;
   display: inline-flex;
   justify-content: center;
   align-content: center;
@@ -27,5 +26,5 @@
 }
 
 .start-over button {
-  margin-top: 75px;
+  margin-top: 60px;
 }
