@@ -1,7 +1,6 @@
 import React from 'react'
-import './style.css'
 import { Board as BoardType, Move } from '../../utils/types'
-import Tile from '../Tile'
+import './style.css'
 
 type BoardProps = {
   userTurn: (choice: Move) => any
@@ -16,16 +15,15 @@ export default class Board extends React.Component<BoardProps> {
     const tiles: any[] = []
     let i: Move = 0
     ROWS.forEach(row => {
-      COLUMNS.forEach(col => {
+      COLUMNS.forEach(column => {
         const marker = board[i]
         const move = i
-        tiles.push(<Tile
-          key={`${row}:${col}`}
-          row={row}
-          column={col}
-          marker={marker}
-          onClick={marker === '' ? () => userTurn(move) : () => {}}
-        />)
+        const onClick = marker === '' ? () => userTurn(move) : () => {}
+        tiles.push(
+          <div key={`${row}:${column}`} className={`tile ${row} ${column}`} onClick={onClick}>
+            <div className='tile-content'>{marker}</div>
+          </div>
+        )
         i++
       })
     })
