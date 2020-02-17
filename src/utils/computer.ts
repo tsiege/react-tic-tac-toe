@@ -4,12 +4,13 @@ import { Board, Move, EMPTY, COMPUTER, HUMAN, Player } from './types'
 import { getEmptySpaces, pickRandomElement } from './helpers'
 import { isGameOver, findWinner } from './scoring'
 
+interface MinimaxMove {
+  move?: Move
+  score?: number
+}
+
 export function getComputerMove({ board, isHard = false }: {board: Board, isHard?: boolean }) {
-  if (isHard) {
-    const { move } = minimax(board)
-    return move
-  }
-  return getEasyMove(board)
+  return isHard ? getHardMove(board) : getEasyMove(board)
 }
 
 function getEasyMove(board: Board) {
@@ -17,22 +18,27 @@ function getEasyMove(board: Board) {
   return pickRandomElement<Move>(emptySpaces)
 }
 
-interface MinimaxMove {
-  move?: Move
-  score?: number
+function getHardMove(board: Board): Move | undefined {
+  //if middle tile isn't taken take it
+  if (board[4] === EMPTY) {
+    return 4
+  }
+  //only the middle is taken, take a corner
+  if (getEmptySpaces(board).length === 8) {
+    return pickRandomElement<Move>([0, 2, 6, 8])
+  }
+  //no short cut available, run minimax algo
+  const { move } = minimax(board)
+  return move
 }
 
 // the minimax algorithm which with returns a move and the score for that move
 function minimax(board: Board, player: Player = COMPUTER, depth = 0): MinimaxMove {
-  //if middle tile isn't taken take it
-  if (board[4] === EMPTY) {
-    return { move: 4 }
-  }
-  //create an empty array of possible moves
+  //list for potential spaces
   let moves: MinimaxMove[] = []
   //retrieve free spaces
   let emptySpaces = getEmptySpaces(board)
-  //if there are no emptySpaces return null for move
+  //if there are no emptySpaces return undefined for move
   if (!emptySpaces.length) {
     return { move: undefined }
   }
