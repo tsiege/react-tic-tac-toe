@@ -56,19 +56,18 @@ export default class Game extends React.Component<{}, GameState> {
     const { board } = this.state
     const winner = findWinner(board)
     if (winner) {
-      return this.setState({ isGameOver: true, winner })
+      this.setState({ isGameOver: true, winner })
+      return true
     }
     if (isTie(board)) {
-      return this.setState({ isGameOver: true, })
+      this.setState({ isGameOver: true })
+      return true
     }
+    return false
   }
 
   async computerTurn() {
-    const { board: ogBoard, isGameOver, isHard } = this.state
-    if (isGameOver) {
-      return
-    }
-    // typescript is upset and needs the casting
+    const { board: ogBoard, isHard } = this.state
     const board = [...ogBoard] as BoardType
     const move = getComputerMove({ board, isHard })
     if (move !== undefined) {
@@ -78,24 +77,25 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   userTurn = async (move: Move) => {
-    // typescript is upset and needs the casting
     await this.makeMove(move, HUMAN)
-    await this.checkForEndOfGame()
-    this.computerTurn()
+    const isGameOver = await this.checkForEndOfGame()
+    if (!isGameOver) {
+      this.computerTurn()
+    }
   }
 
   render() {
     const { board, hasGameStarted, isGameOver, winner, isHard } = this.state
     const userTurn = hasGameStarted && !isGameOver ? this.userTurn : () => {}
-    const optionsStyle = isGameOver ? { height: '100px', paddingBottom: '70px' } : { height: '200px' }
+    const optionsClassname = isGameOver ? 'options-shrink' : 'options-default'
     return (
       <div>
         <Announcements isGameOver={isGameOver} winner={winner} />
         <Options
-          style={optionsStyle}
+          className={optionsClassname}
           isHard={isHard}
           hasGameStarted={hasGameStarted}
-          resetGame={() => this.resetGame()}
+          resetGame={this.resetGame}
           startGame={(args) => this.startGame(args)}
         />
         <Board board={board} userTurn={userTurn}/>

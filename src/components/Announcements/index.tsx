@@ -59,9 +59,7 @@ export default class Announcements extends React.Component<AnnouncementsProps> {
     }
     return (
       <section className='announcements'>
-        <div className='wrap'>
-          {html}
-        </div>
+        {html}
       </section>
     )
   }

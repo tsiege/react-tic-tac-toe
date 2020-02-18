@@ -5,7 +5,7 @@ import Options from '.'
 test('renders options', () => {
   const { getByText } = render(
   <Options
-    style={ { height: '100px' } }
+    className={'options-default'}
     hasGameStarted={false}
     resetGame={()=>{}}
     startGame={()=>{}}/>

@@ -9,24 +9,25 @@ type BoardProps = {
 
 const ROWS = ['top', 'center', 'bottom']
 const COLUMNS = ['left', 'middle', 'right']
+
+const classNames = ROWS
+  .map(r => COLUMNS.map(c => `${r} ${c}`))
+  .reduce((acc, arr) => [...acc, ...arr], [])
+
 export default class Board extends React.Component<BoardProps> {
   renderBoard() {
     const { board, userTurn } = this.props
     const tiles: JSX.Element[] = []
-    let i: Move = 0
-    ROWS.forEach(row => {
-      COLUMNS.forEach(column => {
-        const marker = board[i]
-        const move = i
-        const onClick = marker === '' ? () => userTurn(move) : () => {}
-        tiles.push(
-          <div key={`${row}:${column}`} className={`tile ${row} ${column}`} onClick={onClick}>
-            <div className='tile-content'>{marker}</div>
-          </div>
-        )
-        i++
-      })
-    })
+    for (let i: Move = 0; i < 9; i++) {
+      const className = classNames[i]
+      const marker = board[i]
+      const onClick = marker === '' ? () => userTurn(i) : () => {}
+      tiles.push(
+        <div key={i} className={`tile ${className}`} onClick={onClick}>
+          <div className='tile-content'>{marker}</div>
+        </div>
+      )
+    }
     return tiles
   }
   render() {
