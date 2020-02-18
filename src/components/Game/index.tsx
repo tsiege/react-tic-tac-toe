@@ -86,7 +86,6 @@ export default class Game extends React.Component<{}, GameState> {
 
   render() {
     const { board, hasGameStarted, isGameOver, winner, isHard } = this.state
-    const userTurn = hasGameStarted && !isGameOver ? this.userTurn : () => {}
     const optionsClassname = isGameOver ? 'options-shrink' : 'options-default'
     return (
       <div>
@@ -98,7 +97,7 @@ export default class Game extends React.Component<{}, GameState> {
           resetGame={this.resetGame}
           startGame={(args) => this.startGame(args)}
         />
-        <Board board={board} userTurn={userTurn}/>
+        <Board board={board} userTurn={this.userTurn}/>
       </div>
     )
   }
