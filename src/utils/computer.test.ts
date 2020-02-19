@@ -40,8 +40,13 @@ describe('getComputerMove', () => {
     })
     test('prioritizes winning over blocking', () => {
       const move = getComputerMove({ board: ['X','O','X','X','O','X','','','O'], isHard: true })
-      // ['X','O','X','X','O','X','','','O']
+      // ['X','O','X','X','O','X','','O','O']
       expect(move).toBe(7)
+    })
+    test('prioritizes winning over setting up', () => {
+      const move = getComputerMove({ board: ['O','','','','O','X','','X',''], isHard: true })
+      // ['O','','','','O','X','','X','O']
+      expect(move).toBe(8)
     })
   })
 })
