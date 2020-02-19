@@ -5,6 +5,7 @@ import './style.css'
 interface OptionsProps {
   isHard?: boolean
   hasGameStarted: boolean
+  className: string
   resetGame: () => any
   startGame: (args: { player: Player, isHard: boolean }) => any
 }
@@ -18,10 +19,6 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
     this.state = {
       isHard: props.isHard
     }
-  }
-
-  pickYourPoison(isHard: boolean) {
-    this.setState({ isHard })
   }
 
   callStart(player: Player) {
@@ -39,12 +36,12 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
         <div>
           <h3>Which way do you wanna do this?</h3>
           <p>
-            <button className='option-button' onClick={() => this.pickYourPoison(true)}>
+            <button className='options-button' onClick={() => this.setState({ isHard: true })}>
               <span role='img' aria-label='Fire'>🔥</span> The Hard Way?? <span role='img' aria-label='Fire'>🔥</span>
             </button>
           </p>
           <p>
-            <button className='option-button' onClick={() => this.pickYourPoison(false)}>
+            <button className='options-button' onClick={() => this.setState({ isHard: false })}>
               <span role='img' aria-label='Relieved Face'>😌</span> The Easy Way <span role='img' aria-label='Relieved Face'>😌</span>
             </button>
           </p>
@@ -55,12 +52,12 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
         <div>
           <h3>Who goes first?</h3>
             <p>
-              <button className='option-button' onClick={() => this.callStart(COMPUTER)}>
+              <button className='options-button' onClick={() => this.callStart(COMPUTER)}>
                 <span role='img' aria-label='Robot'>🤖</span> Computer <span role='img' aria-label='Robot'>🤖</span>
               </button>
             </p>
             <p>
-              <button className='option-button' onClick={() => this.callStart(HUMAN)}>
+              <button className='options-button' onClick={() => this.callStart(HUMAN)}>
                 <span role='img' aria-label='Bust in Silhouette'>👤</span> YOU! <span role='img' aria-label='Bust in Silhouette'>👤</span>
               </button>
             </p>
@@ -73,16 +70,16 @@ export default class Options extends React.Component<OptionsProps, OptionsState>
     const { resetGame } = this.props
     return (
       <div className='start-over'>
-        <button className='option-button' onClick={resetGame}>Start Over</button>
+        <button className='options-button' onClick={resetGame}>Start Over</button>
       </div>
     )
   }
 
   render() {
-    const { hasGameStarted } = this.props
+    const { hasGameStarted, className } = this.props
     const innerHtml = hasGameStarted ? this.renderResetButton() : this.renderPrePlayOptions()
     return (
-      <section className='options'>
+      <section className={`options ${className}`}>
         {innerHtml}
       </section>
     )

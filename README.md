@@ -8,7 +8,6 @@ This is a Tic Tac Toe game played against a computer. The computer has two diffe
 ├── components              # React Components
     ├── Game                # Handles game state, turns, etc
     ├── Board               # Displays board, spaces, and allows users to click
-    ├── Tile                # Makes up the tiles of the board
     ├── Announcements       # Displays win, loss, and draw info
     ├── Options             # Displays game options
 ├── utils                   # Non React helper functions

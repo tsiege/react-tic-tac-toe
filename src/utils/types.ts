@@ -5,7 +5,7 @@ export const HUMAN = 'X'
 export type Empty = ''
 export const EMPTY = ''
 export type Player = Human | Computer
-type Tile = Empty | Player
+export type Tile = Empty | Player
 
 export type Board = [
   Tile, Tile, Tile,

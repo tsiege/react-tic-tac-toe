@@ -1,34 +1,32 @@
 import React from 'react'
-import './style.css'
 import { Board as BoardType, Move } from '../../utils/types'
-import Tile from '../Tile'
+import './style.css'
 
 type BoardProps = {
-  userTurn: (choice: Move) => any
   board: BoardType
+  userTurn: (choice: Move) => any
 }
 
 const ROWS = ['top', 'center', 'bottom']
 const COLUMNS = ['left', 'middle', 'right']
+
+const classNames = ROWS
+  .map(r => COLUMNS.map(c => `${r} ${c}`))
+  .reduce((acc, arr) => [...acc, ...arr], [])
+
 export default class Board extends React.Component<BoardProps> {
   renderBoard() {
     const { board, userTurn } = this.props
-    const tiles: any[] = []
-    let i: Move = 0
-    ROWS.forEach(row => {
-      COLUMNS.forEach(col => {
-        const marker = board[i]
-        const move = i
-        tiles.push(<Tile
-          key={`${row}:${col}`}
-          row={row}
-          column={col}
-          marker={marker}
-          onClick={marker === '' ? () => userTurn(move) : () => {}}
-        />)
-        i++
-      })
-    })
+    const tiles: JSX.Element[] = []
+    for (let i: Move = 0; i < 9; i++) {
+      const className = classNames[i]
+      const marker = board[i]
+      tiles.push(
+        <div key={i} className={`tile ${className}`} onClick={() => userTurn(i)}>
+          <div className='tile-content'>{marker}</div>
+        </div>
+      )
+    }
     return tiles
   }
   render() {

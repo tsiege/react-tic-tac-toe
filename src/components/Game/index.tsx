@@ -3,7 +3,7 @@ import Board from '../Board'
 import Options from '../Options'
 import { getComputerMove } from '../../utils/computer'
 import { isTie, findWinner } from '../../utils/scoring'
-import { Board as BoardType, Move, Player, COMPUTER, HUMAN } from '../../utils/types'
+import { Board as BoardType, Move, Player, COMPUTER, HUMAN, EMPTY } from '../../utils/types'
 import './style.css'
 import Announcements from '../Announcements'
 
@@ -56,19 +56,18 @@ export default class Game extends React.Component<{}, GameState> {
     const { board } = this.state
     const winner = findWinner(board)
     if (winner) {
-      return this.setState({ isGameOver: true, winner })
+      this.setState({ isGameOver: true, winner })
+      return true
     }
     if (isTie(board)) {
-      return this.setState({ isGameOver: true, })
+      this.setState({ isGameOver: true })
+      return true
     }
+    return false
   }
 
   async computerTurn() {
-    const { board: ogBoard, isGameOver, isHard } = this.state
-    if (isGameOver) {
-      return
-    }
-    // typescript is upset and needs the casting
+    const { board: ogBoard, isHard } = this.state
     const board = [...ogBoard] as BoardType
     const move = getComputerMove({ board, isHard })
     if (move !== undefined) {
@@ -78,25 +77,31 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   userTurn = async (move: Move) => {
-    // typescript is upset and needs the casting
-    await this.makeMove(move, HUMAN)
-    await this.checkForEndOfGame()
-    this.computerTurn()
+    const { hasGameStarted, isGameOver, board } = this.state
+    const isSpaceAvailable = board[move] === EMPTY
+    if (hasGameStarted && !isGameOver && isSpaceAvailable) {
+      await this.makeMove(move, HUMAN)
+      const isGameNowOver = await this.checkForEndOfGame()
+      if (!isGameNowOver) {
+        this.computerTurn()
+      }
+    }
   }
 
   render() {
     const { board, hasGameStarted, isGameOver, winner, isHard } = this.state
-    const userTurn = hasGameStarted && !isGameOver ? this.userTurn : () => {}
+    const optionsClassname = isGameOver ? 'options-shrink' : 'options-default'
     return (
       <div>
         <Announcements isGameOver={isGameOver} winner={winner} />
         <Options
+          className={optionsClassname}
           isHard={isHard}
           hasGameStarted={hasGameStarted}
-          resetGame={() => this.resetGame()}
+          resetGame={this.resetGame}
           startGame={(args) => this.startGame(args)}
         />
-        <Board board={board} userTurn={userTurn}/>
+        <Board board={board} userTurn={this.userTurn}/>
       </div>
     )
   }

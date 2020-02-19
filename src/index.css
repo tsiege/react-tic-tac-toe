@@ -20,21 +20,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-.wrap {
-  margin: 30px auto;
-  width: 50%;
-}
-
-@media screen and (max-width: 900px) {
-  .wrap {
-    width: 75%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .wrap {
-    width: 100%;
-  }
-}
-
