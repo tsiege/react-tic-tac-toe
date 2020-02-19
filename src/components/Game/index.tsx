@@ -3,7 +3,7 @@ import Board from '../Board'
 import Options from '../Options'
 import { getComputerMove } from '../../utils/computer'
 import { isTie, findWinner } from '../../utils/scoring'
-import { Board as BoardType, Move, Player, COMPUTER, HUMAN } from '../../utils/types'
+import { Board as BoardType, Move, Player, COMPUTER, HUMAN, EMPTY } from '../../utils/types'
 import './style.css'
 import Announcements from '../Announcements'
 
@@ -77,10 +77,14 @@ export default class Game extends React.Component<{}, GameState> {
   }
 
   userTurn = async (move: Move) => {
-    await this.makeMove(move, HUMAN)
-    const isGameOver = await this.checkForEndOfGame()
-    if (!isGameOver) {
-      this.computerTurn()
+    const { hasGameStarted, isGameOver, board } = this.state
+    const isSpaceAvailable = board[move] === EMPTY
+    if (hasGameStarted && !isGameOver && isSpaceAvailable) {
+      await this.makeMove(move, HUMAN)
+      const isGameNowOver = await this.checkForEndOfGame()
+      if (!isGameNowOver) {
+        this.computerTurn()
+      }
     }
   }
 

@@ -3,8 +3,8 @@ import { Board as BoardType, Move } from '../../utils/types'
 import './style.css'
 
 type BoardProps = {
-  userTurn: (choice: Move) => any
   board: BoardType
+  userTurn: (choice: Move) => any
 }
 
 const ROWS = ['top', 'center', 'bottom']
@@ -21,9 +21,8 @@ export default class Board extends React.Component<BoardProps> {
     for (let i: Move = 0; i < 9; i++) {
       const className = classNames[i]
       const marker = board[i]
-      const onClick = marker === '' ? () => userTurn(i) : () => {}
       tiles.push(
-        <div key={i} className={`tile ${className}`} onClick={onClick}>
+        <div key={i} className={`tile ${className}`} onClick={() => userTurn(i)}>
           <div className='tile-content'>{marker}</div>
         </div>
       )
