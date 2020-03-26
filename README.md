@@ -1,5 +1,5 @@
 # Tic Tac Toe
-This is a Tic Tac Toe game played against a computer. The computer has two different difficulties, easy and hard. Easy is just a naive player that picks randomly. Hard is unbeatable and uses the [minimax](https://en.wikipedia.org/wiki/Minimax) algorithm to find the best worst possible outcome. Meaning it will play defensively if it sees a possible loss before a possible win. The algorithm recursively tries every possible choice and scores each decision tree once it terminates. Scoring favors blocking a humans win over it's own victory. Scoring also is weighted toward the fast possible victory.
+This is a Tic Tac Toe game played against a computer. The computer has two different difficulties, easy and hard. Easy is just a naive player that picks randomly. Hard is unbeatable and uses the [minimax](https://en.wikipedia.org/wiki/Minimax) algorithm to find the best worst possible outcome. Meaning it will play defensively if it sees a possible loss before a possible win. The algorithm recursively tries every possible choice and scores each decision tree once it terminates. Scoring favors blocking a human's win over it's own victory. Scoring also is weighted toward the fast possible victory.
 
 ## Structure
 ```
