@@ -16,3 +16,6 @@ This is a Tic Tac Toe game played against a computer. The computer has two diffe
     ├── scoring             # Functions to handle scoring and checking for wins
     ├── types               # Any miscellaneous types I might need
 ```
+
+## Demo
+[Enjoy a good ol' game of tic tac toe here](https://tsiege.github.io/react-tic-tac-toe/)
